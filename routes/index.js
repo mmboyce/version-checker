@@ -1,6 +1,5 @@
 const express = require('express');
 const { compareVersions } = require('../service/compareVersions');
-const { route } = require('./users');
 
 const router = express.Router();
 
