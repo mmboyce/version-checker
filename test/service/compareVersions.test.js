@@ -40,4 +40,31 @@ describe('compareVersions', () => {
       expect(compareVersions('2.3.0', '2.3')).toBe('equal');
     });
   });
+
+  describe('when supplied improper parameters', () => {
+    it('should throw an error', () => {
+      expect(() => {
+        compareVersions('one', 'two');
+      }).toThrow();
+
+      expect(() => {
+        compareVersions('one.0', '2.two');
+      }).toThrow();
+
+      expect(() => {
+        // these are not zeroes, they are the letter O!
+        compareVersions('1.O', '2.O');
+      }).toThrow();
+
+      expect(() => {
+        compareVersions('1..0', '1.0');
+      }).toThrow();
+    });
+
+    it('should result in a 400 response code', () => {
+      expect(() => {
+        compareVersions('wrong', 'format');
+      }).toThrow('400');
+    });
+  });
 });
