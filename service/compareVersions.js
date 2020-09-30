@@ -13,6 +13,18 @@ const compareVersions = (versionNumber1, versionNumber2) => {
     after: 'after',
   };
 
+  // validate format
+  const formatValidationRegEx = /^\d+(?:\.\d+)*$/;
+
+  if (!(formatValidationRegEx.test(versionNumber1)
+    && formatValidationRegEx.test(versionNumber2))) {
+    const error = new Error(
+      '400: Version numbers must only contain digits and periods, with no consecutive periods',
+    );
+
+    throw error;
+  }
+
   const splitVersionNumber1 = versionNumber1.split('.');
   const splitVersionNumber2 = versionNumber2.split('.');
 
